@@ -1,0 +1,23 @@
+{
+  "name": "package.json",
+  "version": "1.0.0",
+  "description": "Employee Database",
+  "main": "config.js",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^0.2.3",
+    "mysql": "^2.18.1",
+    "package-json": "^6.5.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DannieDigital/hw-week12.git"
+  },
+ 
+  "author": "Danielle Beaty",
+  "license": "ISC"
+}
