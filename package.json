@@ -2,10 +2,10 @@
   "name": "package.json",
   "version": "1.0.0",
   "description": "Employee Database",
-  "main": "config.js",
+  "main": "employeeTrackerDB.js",
   "dependencies": {
     "console.table": "^0.10.0",
-    "inquirer": "^0.2.3",
+    "inquirer": "^7.1.0",
     "mysql": "^2.18.1",
     "package-json": "^6.5.0"
   },
@@ -17,7 +17,6 @@
     "type": "git",
     "url": "git+https://github.com/DannieDigital/hw-week12.git"
   },
- 
   "author": "Danielle Beaty",
   "license": "ISC"
 }
