@@ -34,5 +34,5 @@
 ###### Danielle Beaty
 ---
 ### App Functionality
-![](assets/employeeTracker.gif)
-![](assets/schema.png)
+![](Assets/employeeTracker.gif)
+![](Assets/schema.png)
