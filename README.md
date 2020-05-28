@@ -16,7 +16,7 @@
 ---
 
 ### Installation 
-##### To run the employee tracker application, first download this repository and run "npm install" which will install the following npm package dependencies as specified in the > - package.json:
+##### To run the employee tracker application, first download this repository and run "npm install" which will install the following npm package dependencies as specified in the package.json:
 
 * [MySQL](https://www.npmjs.com/package/mysql) NPM package to connect to MySQL database and perform queries.
 
@@ -34,5 +34,5 @@
 ###### Danielle Beaty
 ---
 ### App Functionality
-![](assets/employee-tracker.gif)
+![](assets/employeeTracker.gif)
 ![](assets/schema.png)

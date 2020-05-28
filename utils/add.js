@@ -2,7 +2,7 @@ const inquirer = require('inquirer');
 
 function addEmployee(connection, cb) {
     let newEmployee = {};
-    connection.query("SELECT * FROM roles", function (err, results) {
+    connection.query("SELECT * FROM role", function (err, results) {
         if (err) throw err;
         inquirer
             .prompt([
@@ -31,7 +31,7 @@ function addEmployee(connection, cb) {
                     }
                 },
                 {
-                    name: "roles",
+                    name: "role",
                     type: "list",
                     choices: function () {
                         let choiceArray = [];
@@ -49,10 +49,10 @@ function addEmployee(connection, cb) {
                 newEmployee.last_name = answer.last_name;
 
               
-                connection.query("SELECT * FROM roles WHERE title = ?", answer.roles, function (err, results) {
+                connection.query("SELECT * FROM role WHERE title = ?", answer.role, function (err, results) {
                     if (err) throw err;
 
-                    newEmployee.roles_id = results[0].id;
+                    newEmployee.role_id = results[0].id;
 
                    
                     connection.query("SELECT * FROM employee;", function (err, results) {
@@ -91,13 +91,13 @@ function addEmployee(connection, cb) {
     })
 };
 
-function addRoles(connection, cb) {
-    let newRoles = {};
+function addrole(connection, cb) {
+    let newrole = {};
     connection.query("SELECT * FROM department", function (err, results) {
         inquirer
             .prompt([
                 {
-                    name: "roles_title",
+                    name: "role_title",
                     type: "input",
                     default: "Lead Engineer",
                     message: "Add employee here:",
@@ -135,18 +135,18 @@ function addRoles(connection, cb) {
             ])
             .then(function (answer) {
 
-                newRoles.title = answer.roles_title;
-                newRoles.salary = answer.salary;
+                newrole.title = answer.role_title;
+                newrole.salary = answer.salary;
 
              
                 connection.query("SELECT id FROM department WHERE name = ?", answer.dept_name, function (err, results) {
                     if (err) throw err;
-                    newRoles.department_id = results[0].id;
-                    console.log("Adding new roles: ", newRoles);
+                    newrole.department_id = results[0].id;
+                    console.log("Adding new role: ", newrole);
 
-                    connection.query('INSERT INTO roles SET ?', newRoles, function (err, results) {
+                    connection.query('INSERT INTO role SET ?', newrole, function (err, results) {
                         if (err) throw err;
-                        console.log("Roles successfully added.");
+                        console.log("role successfully added.");
                         cb();
                     });
                 })
@@ -186,6 +186,6 @@ function addDepartment(connection, cb) {
 
 module.exports = {
     addEmployee: addEmployee,
-    addRoles: addRoles,
+    addrole: addrole,
     addDepartment: addDepartment
 };

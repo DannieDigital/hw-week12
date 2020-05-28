@@ -1,7 +1,7 @@
 const inquirer = require('inquirer');
 
 function viewAllEmployees(connection, cb) {
-    let query = "SELECT employee.id, employee.first_name, employee.last_name, roles.title, roles.salary, department.name AS department, e2.first_name AS manager FROM employee LEFT JOIN employee as e2 ON e2.id = employee.manager_id JOIN roles ON employee.roles_id = roles.id JOIN department ON roles.department_id = department.id ORDER BY employee.id;";
+    let query = "SELECT employee.id, employee.first_name, employee.last_name, role.title, role.salary, department.name AS department, e2.first_name AS manager FROM employee LEFT JOIN employee as e2 ON e2.id = employee.manager_id JOIN role ON employee.role_id = role.id JOIN department ON role.department_id = department.id ORDER BY employee.id;";
     connection.query(query, function (err, res) {
         if (err) throw err;
         console.table(res);
@@ -30,7 +30,7 @@ function viewEmployeeDept(connection, cb) {
             ])
             .then(function (answer) {
                 console.log(answer.department);
-                let query = 'SELECT employee.id, employee.first_name, employee.last_name, roles.title, roles.salary, department.name AS department, e2.first_name AS manager FROM employee LEFT JOIN employee as e2 ON e2.id = employee.manager_id JOIN roles ON employee.roles_id = roles.id JOIN department ON roles.department_id = department.id WHERE department.name = ? ORDER BY employee.id'
+                let query = 'SELECT employee.id, employee.first_name, employee.last_name, role.title, role.salary, department.name AS department, e2.first_name AS manager FROM employee LEFT JOIN employee as e2 ON e2.id = employee.manager_id JOIN role ON employee.role_id = role.id JOIN department ON role.department_id = department.id WHERE department.name = ? ORDER BY employee.id'
                 connection.query(query, answer.department, function (err, res) {
                     if (err) throw err;
                     console.table(res);
@@ -62,7 +62,7 @@ function viewEmployeeMgr(connection, cb) {
             ])
             .then(function (answer) {
                 console.log(answer.manager);
-                let query = 'SELECT employee.id, employee.first_name, employee.last_name, roles.title, roles.salary, department.name AS department, e2.first_name AS manager FROM employee LEFT JOIN employee AS e2 ON e2.id = employee.manager_id JOIN roles ON employee.roles_id = roles.id JOIN department ON roles.department_id = department.id WHERE e2.first_name = ? ORDER BY employee.id;'
+                let query = 'SELECT employee.id, employee.first_name, employee.last_name, role.title, role.salary, department.name AS department, e2.first_name AS manager FROM employee LEFT JOIN employee AS e2 ON e2.id = employee.manager_id JOIN role ON employee.role_id = role.id JOIN department ON role.department_id = department.id WHERE e2.first_name = ? ORDER BY employee.id;'
                 connection.query(query, answer.manager, function (err, res) {
                     if (err) throw err;
                     console.table(res);
@@ -74,7 +74,7 @@ function viewEmployeeMgr(connection, cb) {
 
 
 function viewRoles (connection, cb) {
-    let query = "SELECT * FROM roles";
+    let query = "SELECT * FROM role";
     connection.query(query, function (err, res) {
         if (err) throw err;
         console.table(res);

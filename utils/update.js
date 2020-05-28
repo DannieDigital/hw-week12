@@ -30,11 +30,11 @@ function removeEmployee(connection, cb) {
 };
 
 
-function updateRoles(connection, cb) {
+function updaterole(connection, cb) {
 
-    let newRoles = {};
+    let newrole = {};
 
-    connection.query("SELECT employee.id, employee.first_name, employee.last_name, roles.title, roles.salary, department.name AS department, e2.first_name AS manager FROM employee LEFT JOIN employee AS e2 ON e2.id = employee.manager_id JOIN roles ON employee.roles_id = roles.id JOIN department ON roles.department_id = department.id ORDER BY employee.id", function (err, results) {
+    connection.query("SELECT employee.id, employee.first_name, employee.last_name, role.title, role.salary, department.name AS department, e2.first_name AS manager FROM employee LEFT JOIN employee AS e2 ON e2.id = employee.manager_id JOIN role ON employee.role_id = role.id JOIN department ON role.department_id = department.id ORDER BY employee.id", function (err, results) {
         if (err) throw err;
         inquirer
             .prompt([
@@ -53,14 +53,14 @@ function updateRoles(connection, cb) {
             ])
             .then(function (answer) {
 
-                newRoles.first_name = answer.updateEmployee;
+                newrole.first_name = answer.updateEmployee;
 
-                connection.query("SELECT * FROM roles", function (err, res) {
+                connection.query("SELECT * FROM role", function (err, res) {
                     if (err) throw err;
                     inquirer
                         .prompt([
                             {
-                                name: "updateRoles",
+                                name: "updateRole",
                                 type: "list",
                                 choices: function () {
                                     let choiceArray = [];
@@ -69,19 +69,19 @@ function updateRoles(connection, cb) {
                                     }
                                     return choiceArray;
                                 },
-                                message: "Modify employees' roles title here?"
+                                message: "Modify employees' role title here?"
                             }
                         ])
                         .then(function (answer) {
                          
-                            connection.query("SELECT * FROM roles WHERE title = ?", answer.updateRoles, function (err, results) {
+                            connection.query("SELECT * FROM role WHERE title = ?", answer.updateRole, function (err, results) {
                                 if (err) throw err;
 
-                                newRoles.roles_id = results[0].id;
+                                newrole.role_id = results[0].id;
 
-                                connection.query("UPDATE employee SET roles_id = ? WHERE first_name = ?", [newRoles.roles_id, newRoles.first_name], function (err, res) {
+                                connection.query("UPDATE employee SET role_id = ? WHERE first_name = ?", [newrole.role_id, newRole.first_name], function (err, res) {
                                     if (err) throw (err);
-                                    console.log('Employee roles successfully updated.');
+                                    console.log('Employee role successfully updated.');
                                     cb();
                                 })
 
@@ -96,7 +96,7 @@ function updateManager(connection, cb) {
 
     let newManager = {};
 
-    connection.query("SELECT employee.id, employee.first_name, employee.last_name, roles.title, roles.salary, department.name AS department, e2.first_name AS manager FROM employee LEFT JOIN employee AS e2 ON e2.id = employee.manager_id JOIN roles ON employee.roles_id = roles.id JOIN department ON roles.department_id = department.id ORDER BY employee.id", function (err, results) {
+    connection.query("SELECT employee.id, employee.first_name, employee.last_name, role.title, role.salary, department.name AS department, e2.first_name AS manager FROM employee LEFT JOIN employee AS e2 ON e2.id = employee.manager_id JOIN role ON employee.role_id = role.id JOIN department ON role.department_id = department.id ORDER BY employee.id", function (err, results) {
         if (err) throw err;
         inquirer
             .prompt([
@@ -153,13 +153,13 @@ function updateManager(connection, cb) {
     })
 };
 
-function removeRoles(connection, cb) {
-    connection.query("SELECT * FROM roles", function (err, results) {
+function removerole(connection, cb) {
+    connection.query("SELECT * FROM role", function (err, results) {
         if (err) throw err;
         inquirer
             .prompt([
                 {
-                    name: "removeRoles",
+                    name: "removerole",
                     type: "list",
                     choices: function () {
                         let choiceArray = [];
@@ -168,14 +168,14 @@ function removeRoles(connection, cb) {
                         }
                         return choiceArray;
                     },
-                    message: "Which roles would you like to remove?"
+                    message: "Which role would you like to remove?"
                 }
             ])
             .then(function (answer) {
-                let query = 'DELETE FROM roles WHERE title = ?;'
-                connection.query(query, answer.removeRoles, function (err, res) {
+                let query = 'DELETE FROM role WHERE title = ?;'
+                connection.query(query, answer.removerole, function (err, res) {
                     if (err) throw err;
-                    console.log("Roles successfully deleted");
+                    console.log("role successfully deleted");
                     cb();
                 });
             });
@@ -216,8 +216,8 @@ function removeDepartment (connection, cb) {
 
 module.exports = {
     removeEmployee: removeEmployee,
-    updateRoles: updateRoles,
+    updaterole: updaterole,
     updateManager: updateManager,
-    removeRoles: removeRoles,
+    removerole: removerole,
     removeDepartment: removeDepartment
 }

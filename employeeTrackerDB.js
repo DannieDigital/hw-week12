@@ -73,16 +73,16 @@ function start() {
                   update.removeEmployee(connection, start);
                   break;
 
-              case "View all company's roles":
-                  view.viewRoles(connection, start);
+              case "View all company's role":
+                  view.viewRole(connection, start);
                   break;
 
               case "Add a new role":
-                  add.addRoles(connection, start);
+                  add.addRolenod(connection, start);
                   break;
 
               case "Remove a role":
-                  update.removeRoles(connection, start);
+                  update.removeRole(connection, start);
                   break;
 
               case "View all departments":
